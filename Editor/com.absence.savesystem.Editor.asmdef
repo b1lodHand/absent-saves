@@ -1,0 +1,14 @@
+{
+    "name": "com.absence.savesystem.Editor",
+    "rootNamespace": "com.absence.savesystem.Editor",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
