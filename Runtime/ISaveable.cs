@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ISaveable
+namespace com.absence.savesystem
 {
-    public bool Load();
-    public bool Save();
+    public interface ISaveable
+    {
+        public bool Load();
+        public bool Save();
+    }
 }

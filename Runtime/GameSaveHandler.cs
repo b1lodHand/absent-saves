@@ -1,41 +1,43 @@
 
-using Unity.VisualScripting;
 using UnityEngine;
 
-public static class GameSaveHandler
+namespace com.absence.savesystem
 {
-    public static string CurrentSaveName;
-
-    public static void NewGame(string saveName)
+    public static class GameSaveHandler
     {
-        GameSaveData.Reset();
-        CurrentSaveName = saveName;
-        QuickSave();
-    }
+        public static string CurrentSaveName;
 
-    public static void QuickSave()
-    {
-        Save(CurrentSaveName);
-    }
+        public static void NewGame(string saveName)
+        {
+            GameSaveData.Reset();
+            CurrentSaveName = saveName;
+            QuickSave();
+        }
 
-    public static void Save(string saveName)
-    {
-        if (string.IsNullOrEmpty(saveName)) throw new UnityException("Save name not valid!");
+        public static void QuickSave()
+        {
+            Save(CurrentSaveName);
+        }
 
-        SaveMessageCaller receiver = SaveMessageCaller.CreateNew(SaveMessageCaller.CallMode.Save);
-        receiver.Call();
+        public static void Save(string saveName)
+        {
+            if (string.IsNullOrEmpty(saveName)) throw new UnityException("Save name not valid!");
 
-        BinarySerializator.Serialize(saveName, GameSaveData.Current);
-    }
+            SaveMessageCaller receiver = SaveMessageCaller.CreateNew(SaveMessageCaller.CallMode.Save);
+            receiver.Call();
 
-    public static void Load(string saveName)
-    {
-        if (!BinarySerializator.Deserialize(saveName, out object data)) return;
+            BinarySerializator.Serialize(saveName, GameSaveData.Current);
+        }
 
-        GameSaveData.Current = (GameSaveData)data;
-        CurrentSaveName = saveName;
+        public static void Load(string saveName)
+        {
+            if (!BinarySerializator.Deserialize(saveName, out object data)) return;
 
-        SaveMessageCaller receiver = SaveMessageCaller.CreateNew(SaveMessageCaller.CallMode.Load);
-        receiver.Call();
+            GameSaveData.Current = (GameSaveData)data;
+            CurrentSaveName = saveName;
+
+            SaveMessageCaller receiver = SaveMessageCaller.CreateNew(SaveMessageCaller.CallMode.Load);
+            receiver.Call();
+        }
     }
 }

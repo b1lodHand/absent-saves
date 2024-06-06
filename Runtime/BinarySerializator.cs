@@ -4,73 +4,76 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
-public class BinarySerializator
+namespace com.absence.savesystem
 {
-    public static readonly string SaveDirectory = Application.persistentDataPath + "/saves/";
-
-    public static bool Serialize(string fileName, object dataToSerialize)
+    public class BinarySerializator
     {
-        try
+        public static readonly string SaveDirectory = Application.persistentDataPath + "/saves/";
+
+        public static bool Serialize(string fileName, object dataToSerialize)
         {
-            BinaryFormatter formatter = GetBinaryFormatter();
+            try
+            {
+                BinaryFormatter formatter = GetBinaryFormatter();
 
-            if (!Directory.Exists(SaveDirectory)) Directory.CreateDirectory(SaveDirectory);
+                if (!Directory.Exists(SaveDirectory)) Directory.CreateDirectory(SaveDirectory);
 
+                var fullPath = SaveDirectory + fileName + ".save";
+                if (File.Exists(fullPath)) File.Delete(fullPath);
+
+                using (FileStream fileToWrite = File.Create(fullPath))
+                {
+                    formatter.Serialize(fileToWrite, dataToSerialize);
+                }
+            }
+
+            catch (Exception e)
+            {
+                Debug.LogError($"An error occurred while saving the game: \n{e.Message}");
+                return false;
+            }
+
+            return true;
+        }
+        public static bool Deserialize(string fileName, out object data)
+        {
+            data = null;
             var fullPath = SaveDirectory + fileName + ".save";
-            if (File.Exists(fullPath)) File.Delete(fullPath);
+            if (!File.Exists(fullPath)) return false;
 
-            using (FileStream fileToWrite = File.Create(fullPath))
+            try
             {
-                formatter.Serialize(fileToWrite, dataToSerialize);
+                BinaryFormatter formatter = GetBinaryFormatter();
+                using (FileStream fileToRead = File.OpenRead(fullPath))
+                {
+                    data = formatter.Deserialize(fileToRead);
+                }
             }
-        }
 
-        catch (Exception e)
-        {
-            Debug.LogError($"An error occurred while saving the game: \n{e.Message}");
-            return false;
-        }
-
-        return true;
-    }
-    public static bool Deserialize(string fileName, out object data)
-    {
-        data = null;
-        var fullPath = SaveDirectory + fileName + ".save";
-        if (!File.Exists(fullPath)) return false;
-
-        try
-        {
-            BinaryFormatter formatter = GetBinaryFormatter();
-            using (FileStream fileToRead = File.OpenRead(fullPath))
+            catch (Exception e)
             {
-                data = formatter.Deserialize(fileToRead);
+                Debug.LogError($"An error occured while loading the save file '{fullPath}': \n{e.Message}");
+                return false;
             }
+
+            return true;
         }
 
-        catch (Exception e)
+        internal static BinaryFormatter GetBinaryFormatter()
         {
-            Debug.LogError($"An error occured while loading the save file '{fullPath}': \n{e.Message}");
-            return false;
+            BinaryFormatter formatter = new BinaryFormatter();
+
+            SurrogateSelector selector = new SurrogateSelector();
+
+            Vector3SerializationSurrogate vector3SerializationSurrogate = new Vector3SerializationSurrogate();
+            QuaternionSerializationSurrogate quaternionSerializationSurrogate = new QuaternionSerializationSurrogate();
+
+            selector.AddSurrogate(typeof(Vector3SerializationSurrogate), new StreamingContext(StreamingContextStates.All), vector3SerializationSurrogate);
+            selector.AddSurrogate(typeof(QuaternionSerializationSurrogate), new StreamingContext(StreamingContextStates.All), quaternionSerializationSurrogate);
+
+            formatter.SurrogateSelector = selector;
+
+            return formatter;
         }
-
-        return true;
-    }
-
-    internal static BinaryFormatter GetBinaryFormatter()
-    {
-        BinaryFormatter formatter = new BinaryFormatter();
-
-        SurrogateSelector selector = new SurrogateSelector();
-
-        Vector3SerializationSurrogate vector3SerializationSurrogate = new Vector3SerializationSurrogate();
-        QuaternionSerializationSurrogate quaternionSerializationSurrogate = new QuaternionSerializationSurrogate();
-
-        selector.AddSurrogate(typeof(Vector3SerializationSurrogate), new StreamingContext(StreamingContextStates.All), vector3SerializationSurrogate);
-        selector.AddSurrogate(typeof(QuaternionSerializationSurrogate), new StreamingContext(StreamingContextStates.All), quaternionSerializationSurrogate);
-
-        formatter.SurrogateSelector = selector;
-
-        return formatter;
     }
 }

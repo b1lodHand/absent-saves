@@ -1,70 +1,71 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 
-internal class SaveMessageCaller : MonoBehaviour
+namespace com.absence.savesystem
 {
-    internal enum CallMode
+    internal class SaveMessageCaller : MonoBehaviour
     {
-        Save = 0,
-        Load = 1,
-    }
-
-    public CallMode MessageCallMode { get; private set; }
-
-    internal static SaveMessageCaller CreateNew(CallMode callMode)
-    {
-        var comp = new GameObject(nameof(SaveMessageCaller)).AddComponent<SaveMessageCaller>();
-        comp.MessageCallMode = callMode;
-
-        return comp;
-    }
-
-    internal bool Call()
-    {
-        bool result = true;
-        switch (MessageCallMode)
+        internal enum CallMode
         {
-            case CallMode.Save:
-                result = CallForSave();
-                break;
-            case CallMode.Load:
-                result = CallForLoad();
-                break;
-            default:
-                result = false;
-                break;
+            Save = 0,
+            Load = 1,
         }
 
-        Destroy(gameObject);
-        return result;
-    }
+        public CallMode MessageCallMode { get; private set; }
 
-    private bool CallForSave()
-    {
-        bool success = true;
-        var foundObjects = FindObjectsOfType<MonoBehaviour>().OfType<ISaveable>().ToList();
-
-        foundObjects.ForEach(o =>
+        internal static SaveMessageCaller CreateNew(CallMode callMode)
         {
-            if (!o.Save()) success = false;
-        });
+            var comp = new GameObject(nameof(SaveMessageCaller)).AddComponent<SaveMessageCaller>();
+            comp.MessageCallMode = callMode;
 
-        return success;
-    }
+            return comp;
+        }
 
-    private bool CallForLoad()
-    {
-        bool success = true;
-        var foundObjects = FindObjectsOfType<MonoBehaviour>().OfType<ISaveable>().ToList();
-
-        foundObjects.ForEach(o =>
+        internal bool Call()
         {
-            if (!o.Load()) success = false;
-        });
+            bool result = true;
+            switch (MessageCallMode)
+            {
+                case CallMode.Save:
+                    result = CallForSave();
+                    break;
+                case CallMode.Load:
+                    result = CallForLoad();
+                    break;
+                default:
+                    result = false;
+                    break;
+            }
 
-        return success;
+            Destroy(gameObject);
+            return result;
+        }
+
+        private bool CallForSave()
+        {
+            bool success = true;
+            var foundObjects = FindObjectsOfType<MonoBehaviour>().OfType<ISaveable>().ToList();
+
+            foundObjects.ForEach(o =>
+            {
+                if (!o.Save()) success = false;
+            });
+
+            return success;
+        }
+
+        private bool CallForLoad()
+        {
+            bool success = true;
+            var foundObjects = FindObjectsOfType<MonoBehaviour>().OfType<ISaveable>().ToList();
+
+            foundObjects.ForEach(o =>
+            {
+                if (!o.Load()) success = false;
+            });
+
+            return success;
+        }
     }
+
 }

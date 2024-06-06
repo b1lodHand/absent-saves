@@ -1,30 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-[System.Serializable]
-public class GameSaveData
+
+namespace com.absence.savesystem
 {
-    #region Singleton
-    private static GameSaveData m_current;
-    public static GameSaveData Current
+    [System.Serializable]
+    public class GameSaveData
     {
-        get
+        #region Singleton
+        private static GameSaveData m_current;
+        public static GameSaveData Current
         {
-            if (m_current == null) Reset();
-            return m_current;
+            get
+            {
+                if (m_current == null) Reset();
+                return m_current;
+            }
+
+            internal set { m_current = value; }
         }
 
-        internal set { m_current = value; }
+        public static void Reset()
+        {
+            m_current = new GameSaveData();
+        }
+        #endregion
+
+        /* DATA */
+        public int ID1;
+        public int ID2;
     }
 
-    public static void Reset()
-    {
-        m_current = new GameSaveData();
-    }
-    #endregion
-
-    /* DATA */
-    public int ID1;
-    public int ID2;
 }
