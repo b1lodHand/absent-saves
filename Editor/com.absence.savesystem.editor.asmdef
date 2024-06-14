@@ -1,10 +1,10 @@
 {
-    "name": "com.absence.savesystem",
-    "rootNamespace": "com.absence.savesystem",
-    "references": [
-        "com.absence.savesystem.external"
+    "name": "com.absence.savesystem.editor",
+    "rootNamespace": "com.absence.savesystem.editor",
+    "references": [],
+    "includePlatforms": [
+        "Editor"
     ],
-    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

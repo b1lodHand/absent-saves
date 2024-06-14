@@ -1,43 +1,47 @@
-
 using UnityEngine;
 
 namespace com.absence.savesystem
 {
     public static class GameSaveHandler
     {
-        public static string CurrentSaveName;
+        private static string m_currentSaveName = string.Empty;
+        public static string CurrentSaveName => m_currentSaveName;
 
         public static void NewGame(string saveName)
         {
-            GameSaveData.Reset();
-            CurrentSaveName = saveName;
+            DataPipe.ResetData();
+            m_currentSaveName = saveName;
             QuickSave();
         }
 
-        public static void QuickSave()
+        public static bool QuickSave()
         {
-            Save(CurrentSaveName);
+            return Save(m_currentSaveName);
         }
 
-        public static void Save(string saveName)
+        public static bool Save(string saveName)
         {
             if (string.IsNullOrEmpty(saveName)) throw new UnityException("Save name not valid!");
 
             SaveMessageCaller receiver = SaveMessageCaller.CreateNew(SaveMessageCaller.CallMode.Save);
             receiver.Call();
 
-            BinarySerializator.Serialize(saveName, GameSaveData.Current);
+            BinarySerializator.Serialize(saveName, DataPipe.RetrieveData());
+
+            return true;
         }
 
-        public static void Load(string saveName)
+        public static bool Load(string saveName)
         {
-            if (!BinarySerializator.Deserialize(saveName, out object data)) return;
+            if (!BinarySerializator.Deserialize(saveName, out object data)) return false;
 
-            GameSaveData.Current = (GameSaveData)data;
-            CurrentSaveName = saveName;
+            DataPipe.SendData(data);
+            m_currentSaveName = saveName;
 
             SaveMessageCaller receiver = SaveMessageCaller.CreateNew(SaveMessageCaller.CallMode.Load);
             receiver.Call();
+
+            return true;
         }
     }
 }

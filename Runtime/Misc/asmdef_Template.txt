@@ -1,9 +1,7 @@
 {
-    "name": "com.absence.savesystem",
-    "rootNamespace": "com.absence.savesystem",
-    "references": [
-        "com.absence.savesystem.external"
-    ],
+    "name": "com.absence.savesystem.external",
+    "rootNamespace": "com.absence.savesystem.external",
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
