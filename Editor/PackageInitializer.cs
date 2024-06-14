@@ -43,6 +43,8 @@ namespace com.absence.savesystem.editor
                 CreateSaveDataScript();
                 RewriteRuntimeAsmdef();
                 RewritePipeScript();
+
+                AssetDatabase.Refresh();
             }
         }
 
