@@ -1,6 +1,6 @@
 using System;
 
-namespace com.absence.savesystem.internals
+namespace com.absence.savesystem
 {
     [AttributeUsage(AttributeTargets.Method)]
     public class SurrogateProviderMethodAttribute : Attribute
