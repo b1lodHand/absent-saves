@@ -6,7 +6,7 @@ namespace com.absence.savesystem
 {
     public interface ISaveable
     {
-        public bool Load();
-        public bool Save();
+        public bool OnLoad();
+        public bool OnSave();
     }
 }

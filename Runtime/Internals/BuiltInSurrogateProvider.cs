@@ -2,7 +2,7 @@ using System.Runtime.Serialization;
 
 namespace com.absence.savesystem.internals
 {
-    public static class BuiltInSurrogateProvider
+    static class BuiltInSurrogateProvider
     {
         [SurrogateProviderMethod]
         public static void Provide(SurrogateSelector targetSelector)

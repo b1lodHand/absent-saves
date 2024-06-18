@@ -1,11 +1,10 @@
-
 using System.Runtime.Serialization;
 using UnityEngine;
 
 namespace com.absence.savesystem.internals
 {
     // Vector3
-    public class Vector3SerializationSurrogate : ISerializationSurrogate
+    class Vector3SerializationSurrogate : ISerializationSurrogate
     {
         public void GetObjectData(object obj, SerializationInfo info, StreamingContext context)
         {
@@ -27,7 +26,7 @@ namespace com.absence.savesystem.internals
     }
 
     // Quaternion
-    public class QuaternionSerializationSurrogate : ISerializationSurrogate
+    class QuaternionSerializationSurrogate : ISerializationSurrogate
     {
         public void GetObjectData(object obj, SerializationInfo info, StreamingContext context)
         {

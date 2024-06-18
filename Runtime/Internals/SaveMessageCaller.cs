@@ -48,7 +48,7 @@ namespace com.absence.savesystem.internals
 
             foundObjects.ForEach(o =>
             {
-                if (!o.Save()) success = false;
+                if (!o.OnSave()) success = false;
             });
 
             return success;
@@ -61,7 +61,7 @@ namespace com.absence.savesystem.internals
 
             foundObjects.ForEach(o =>
             {
-                if (!o.Load()) success = false;
+                if (!o.OnLoad()) success = false;
             });
 
             return success;
