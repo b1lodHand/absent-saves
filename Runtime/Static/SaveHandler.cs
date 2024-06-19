@@ -34,7 +34,7 @@ namespace com.absence.savesystem
         /// <returns>False if anything goes wrong. True otherwise.</returns>
         public static bool NewGame(string saveName, object defaultData, Action<object> onReload)
         {
-            if (!QuickSave(defaultData)) return false;
+            if (!Save(saveName, defaultData)) return false;
 
             return Load(saveName, onReload);
         }
