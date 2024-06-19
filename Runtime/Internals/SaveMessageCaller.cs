@@ -11,7 +11,7 @@ namespace com.absence.savesystem.internals
             Load = 1,
         }
 
-        public CallMode MessageCallMode { get; private set; }
+        internal CallMode MessageCallMode { get; private set; }
 
         internal static SaveMessageCaller CreateNew(CallMode callMode)
         {

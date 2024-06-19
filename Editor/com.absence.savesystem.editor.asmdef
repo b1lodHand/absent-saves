@@ -1,0 +1,18 @@
+{
+    "name": "com.absence.savesystem.editor",
+    "rootNamespace": "com.absence.savesystem.editor",
+    "references": [
+        "GUID:bd4f296279a70a24aace3552aafa49b4"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

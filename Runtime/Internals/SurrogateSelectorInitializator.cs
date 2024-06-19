@@ -2,9 +2,9 @@ using System.Runtime.Serialization;
 
 namespace com.absence.savesystem.internals
 {
-    public static class SurrogateSelectorInitializator
+    internal static class SurrogateSelectorInitializator
     {
-        public static void InitializeSurrogatesForSelector(SurrogateSelector targetSelector)
+        internal static void InitializeSurrogatesForSelector(SurrogateSelector targetSelector)
         {
             SurrogateProviderDatabase.Providers.ForEach(method =>
             {

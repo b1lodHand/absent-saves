@@ -6,11 +6,11 @@ using UnityEngine;
 
 namespace com.absence.savesystem.internals
 {
-    public class BinarySerializator
+    internal class BinarySerializator
     {
-        public static readonly string SaveDirectory = Application.persistentDataPath + "/saves/";
+        internal static readonly string SaveDirectory = Application.persistentDataPath + "/saves/";
 
-        public static bool Serialize(string fileName, object dataToSerialize)
+        internal static bool Serialize(string fileName, object dataToSerialize)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace com.absence.savesystem.internals
 
             return true;
         }
-        public static bool Deserialize(string fileName, out object data)
+        internal static bool Deserialize(string fileName, out object data)
         {
             data = null;
             var fullPath = SaveDirectory + fileName + ".save";
@@ -59,7 +59,7 @@ namespace com.absence.savesystem.internals
             return true;
         }
 
-        public static BinaryFormatter GetBinaryFormatter()
+        internal static BinaryFormatter GetBinaryFormatter()
         {
             BinaryFormatter formatter = new BinaryFormatter();
 
