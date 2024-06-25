@@ -7,7 +7,7 @@ namespace com.absence.savesystem.editor
 {
     internal static class EditorJobsHelper
     {
-        [MenuItem("absencee_/absent-saves/Print Surrogate Provider List")]
+        [MenuItem("absencee_/absent-saves/Refresh Surrogate Provider Database")]
         static void PrintProviderList()
         {
             SurrogateProviderDatabase.FetchProviders();
@@ -19,9 +19,7 @@ namespace com.absence.savesystem.editor
             }
 
             StringBuilder sb = new StringBuilder();
-            sb.Append("<b>");
-            sb.Append("Found surrogate providers: ");
-            sb.Append("</b>");
+            sb.Append("<b>[SAVESYSTEM] Found surrogate providers: </b>");
 
             SurrogateProviderDatabase.ProviderPreviews.ForEach(preview =>
             {
