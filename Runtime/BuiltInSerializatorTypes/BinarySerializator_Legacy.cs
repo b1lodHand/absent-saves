@@ -1,24 +1,27 @@
+using com.absence.savesystem.internals;
 using System;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
-namespace com.absence.savesystem.internals
+namespace com.absence.savesystem
 {
-    internal class BinarySerializator
+    public class BinarySerializator_Legacy : Serializator
     {
-        internal static readonly string SaveDirectory = Application.persistentDataPath + "/saves/";
+        public BinarySerializator_Legacy(string fileName) : base(fileName)
+        {
+        }
 
-        internal static bool Serialize(string fileName, object dataToSerialize)
+        public override bool Serialize(object dataToSerialize)
         {
             try
             {
                 BinaryFormatter formatter = GetBinaryFormatter();
 
-                if (!Directory.Exists(SaveDirectory)) Directory.CreateDirectory(SaveDirectory);
+                if (!Directory.Exists(SaveLoadHandler.SaveDirectory)) Directory.CreateDirectory(SaveLoadHandler.SaveDirectory);
 
-                var fullPath = SaveDirectory + fileName + ".save";
+                var fullPath = SaveLoadHandler.SaveDirectory + FileName + ".save";
                 if (File.Exists(fullPath)) File.Delete(fullPath);
 
                 using (FileStream fileToWrite = File.Create(fullPath))
@@ -35,16 +38,15 @@ namespace com.absence.savesystem.internals
 
             return true;
         }
-        internal static bool Deserialize(string fileName, out object data)
+        public override bool Deserialize(out object data)
         {
             data = null;
-            var fullPath = SaveDirectory + fileName + ".save";
-            if (!File.Exists(fullPath)) return false;
+            if (!File.Exists(p_fullPath)) return false;
 
             try
             {
                 BinaryFormatter formatter = GetBinaryFormatter();
-                using (FileStream fileToRead = File.OpenRead(fullPath))
+                using (FileStream fileToRead = File.OpenRead(p_fullPath))
                 {
                     data = formatter.Deserialize(fileToRead);
                 }
@@ -52,14 +54,14 @@ namespace com.absence.savesystem.internals
 
             catch (Exception e)
             {
-                Debug.LogError($"An error occured while loading the save file '{fullPath}': \n{e.Message}");
+                Debug.LogError($"An error occured while loading the save file '{p_fullPath}': \n{e.Message}");
                 return false;
             }
 
             return true;
         }
 
-        internal static BinaryFormatter GetBinaryFormatter()
+        private static BinaryFormatter GetBinaryFormatter()
         {
             BinaryFormatter formatter = new BinaryFormatter();
 
@@ -71,6 +73,5 @@ namespace com.absence.savesystem.internals
 
             return formatter;
         }
-
     }
 }

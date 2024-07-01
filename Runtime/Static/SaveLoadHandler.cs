@@ -1,13 +1,15 @@
 using com.absence.savesystem.internals;
 using System;
+using UnityEngine;
 
 namespace com.absence.savesystem
 {
     /// <summary>
     /// The static class responsible for handling the saving/loading process.
     /// </summary>
-    public static class SaveHandler
+    public static class SaveLoadHandler
     {
+        public static readonly string SaveDirectory = Application.persistentDataPath + "/saves/";
         private static string m_currentSaveName = string.Empty;
 
         /// <summary>
@@ -32,11 +34,11 @@ namespace com.absence.savesystem
         /// <param name="defaultData">The default data for this new save.</param>
         /// <param name="onReload">Action which will get invoked when the game reloads the newly created save.</param>
         /// <returns>False if anything goes wrong. True otherwise.</returns>
-        public static bool NewGame(string saveName, object defaultData, Action<object> onReload)
+        public static bool NewGame(object defaultData, Action<object> onReload, Serializator serializator)
         {
-            if (!Save(saveName, defaultData)) return false;
+            if (!Save(defaultData, serializator)) return false;
 
-            return Load(saveName, onReload);
+            return Load(onReload, serializator);
         }
 
         /// <summary>
@@ -44,9 +46,9 @@ namespace com.absence.savesystem
         /// </summary>
         /// <param name="dataToSave">The new data which will override the old one.</param>
         /// <returns>False if anything goes wrong. True otherwise.</returns>
-        public static bool QuickSave(object dataToSave)
+        public static bool QuickSave(object dataToSave, Serializator serializator)
         {
-            return Save(m_currentSaveName, dataToSave);
+            return Save(dataToSave, serializator);
         }
 
         /// <summary>
@@ -55,14 +57,14 @@ namespace com.absence.savesystem
         /// <param name="saveName">Name of the target save file.</param>
         /// <param name="dataToSave">Data to save.</param>
         /// <returns>False if anything goes wrong. True otherwise.</returns>
-        public static bool Save(string saveName, object dataToSave)
+        public static bool Save(object dataToSave, Serializator serializator)
         {
-            if (string.IsNullOrEmpty(saveName)) throw new Exception("Save name not valid!");
+            if (string.IsNullOrEmpty(serializator.FileName)) throw new Exception("Save name not valid!");
 
             SaveMessageCaller receiver = SaveMessageCaller.CreateNew(SaveMessageCaller.CallMode.Save);
             receiver.Call();
 
-            BinarySerializator.Serialize(saveName, dataToSave);
+            if (!serializator.Serialize(dataToSave)) return false;
 
             OnSave?.Invoke();
             return true;
@@ -74,11 +76,11 @@ namespace com.absence.savesystem
         /// <param name="saveName">Name of the save which will get loaded.</param>
         /// <param name="handleData">Action for handling the loaded data.</param>
         /// <returns>False if anything goes wrong. True otherwise.</returns>
-        public static bool Load(string saveName, Action<object> handleData)
+        public static bool Load(Action<object> handleData, Serializator serializator)
         {
-            if (!BinarySerializator.Deserialize(saveName, out object data)) return false;
+            if (!serializator.Deserialize(out object data)) return false;
 
-            m_currentSaveName = saveName;
+            m_currentSaveName = serializator.FileName;
 
             handleData.Invoke(data);
 

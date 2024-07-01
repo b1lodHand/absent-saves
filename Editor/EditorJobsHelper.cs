@@ -7,7 +7,7 @@ namespace com.absence.savesystem.editor
 {
     internal static class EditorJobsHelper
     {
-        [MenuItem("absencee_/absent-saves/Refresh Surrogate Provider Database")]
+        [MenuItem("absencee_/absent-saves/Binary Serializator (Legacy)/Refresh Surrogate Provider Database")]
         static void PrintProviderList()
         {
             SurrogateProviderDatabase.FetchProviders();
