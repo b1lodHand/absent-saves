@@ -44,7 +44,7 @@ namespace com.absence.savesystem.internals
         private bool CallForSave()
         {
             bool success = true;
-            var foundObjects = FindObjectsOfType<MonoBehaviour>().OfType<ISaveable>().ToList();
+            var foundObjects = FindObjectsOfType<MonoBehaviour>().OfType<ISaveMessageReceiver>().ToList();
 
             foundObjects.ForEach(o =>
             {
@@ -57,7 +57,7 @@ namespace com.absence.savesystem.internals
         private bool CallForLoad()
         {
             bool success = true;
-            var foundObjects = FindObjectsOfType<MonoBehaviour>().OfType<ISaveable>().ToList();
+            var foundObjects = FindObjectsOfType<MonoBehaviour>().OfType<ISaveMessageReceiver>().ToList();
 
             foundObjects.ForEach(o =>
             {

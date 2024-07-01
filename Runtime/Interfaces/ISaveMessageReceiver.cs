@@ -1,9 +1,9 @@
 namespace com.absence.savesystem
 {
     /// <summary>
-    /// Any component that implements this interface will get notified when game saved/loaded.
+    /// Any MonoBehaviour that implements this interface will get notified when game saved/loaded.
     /// </summary>
-    public interface ISaveable
+    public interface ISaveMessageReceiver
     {
         /// <summary>
         /// The method gets called on load.
