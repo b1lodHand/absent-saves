@@ -37,7 +37,7 @@ namespace com.absence.savesystem
 
             catch (Exception e)
             {
-                Debug.LogError($"Something went wrong loading the game: {e.ToString()}");
+                Debug.LogError($"Something went wrong while loading a save file: {e.ToString()}");
                 return false;
             }
         }
