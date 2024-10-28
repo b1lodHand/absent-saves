@@ -1,7 +1,9 @@
 {
     "name": "com.absence.savesystem",
     "rootNamespace": "com.absence.savesystem",
-    "references": [],
+    "references": [
+        "com.absence.variablesystem"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
@@ -9,6 +11,12 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": [],
+    "versionDefines": [
+        {
+            "name": "com.absence.variablesystem",
+            "expression": "1.0.1",
+            "define": "CAN_SAVE_VB"
+        }
+    ],
     "noEngineReferences": false
 }
