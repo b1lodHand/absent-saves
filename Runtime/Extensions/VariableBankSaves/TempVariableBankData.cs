@@ -1,6 +1,6 @@
 #if CAN_SAVE_VB
 
-using com.absence.variablesystem;
+using com.absence.variablesystem.banksystembase;
 using com.absence.variablesystem.builtin;
 using System.Collections.Generic;
 
