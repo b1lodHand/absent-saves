@@ -14,10 +14,10 @@ namespace com.absence.savesystem.variablebanks
         public int StringCount = 0;
         public int BooleanCount = 0;
 
-        public List<Integer> Ints = new();
-        public List<Float> Floats = new();
-        public List<String> Strings = new();
-        public List<Boolean> Booleans = new();
+        public List<IntegerVariable> Ints = new();
+        public List<FloatVariable> Floats = new();
+        public List<StringVariable> Strings = new();
+        public List<BooleanVariable> Booleans = new();
 
         public TempVariableBankData()
         {

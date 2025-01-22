@@ -77,10 +77,10 @@ namespace com.absence.savesystem.variablebanks
             int sum2 = intCount + floatCount + stringCount;
             int sum3 = intCount + floatCount + stringCount + booleanCount;
 
-            List<Integer> ints = new();
-            List<Float> floats = new();
-            List<String> strings = new();
-            List<Boolean> booleans = new();
+            List<IntegerVariable> ints = new();
+            List<FloatVariable> floats = new();
+            List<StringVariable> strings = new();
+            List<BooleanVariable> booleans = new();
 
             ReadValues();
 
@@ -101,7 +101,7 @@ namespace com.absence.savesystem.variablebanks
                     string name = (string)info.GetValue($"{pointer.ToString()}:name", typeof(string));
                     int value = (int)info.GetValue(pointer.ToString(), typeof(int));
 
-                    ints.Add(new Integer(name, value));
+                    ints.Add(new IntegerVariable(name, value));
                 }
 
                 if (intCount == sum3) return;
@@ -112,7 +112,7 @@ namespace com.absence.savesystem.variablebanks
                     string name = (string)info.GetValue($"{pointer.ToString()}:name", typeof(string));
                     float value = (float)info.GetValue(pointer.ToString(), typeof(float));
 
-                    floats.Add(new Float(name, value));
+                    floats.Add(new FloatVariable(name, value));
                 }
 
                 if (sum1 == sum3) return;
@@ -123,7 +123,7 @@ namespace com.absence.savesystem.variablebanks
                     string name = (string)info.GetValue($"{pointer.ToString()}:name", typeof(string));
                     string value = (string)info.GetValue(pointer.ToString(), typeof(string));
 
-                    strings.Add(new String(name, value));
+                    strings.Add(new StringVariable(name, value));
                 }
 
                 if (sum2 == sum3) return;
@@ -134,7 +134,7 @@ namespace com.absence.savesystem.variablebanks
                     string name = (string)info.GetValue($"{pointer.ToString()}:name", typeof(string));
                     bool value = (bool)info.GetValue(pointer.ToString(), typeof(bool));
 
-                    booleans.Add(new Boolean(name, value));
+                    booleans.Add(new BooleanVariable(name, value));
                 }
             }
         }
