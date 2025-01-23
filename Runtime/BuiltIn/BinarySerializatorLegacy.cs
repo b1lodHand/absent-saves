@@ -1,15 +1,23 @@
 using com.absence.savesystem.internals;
+using com.absence.savesystem.internals.legacy;
 using System;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
-namespace com.absence.savesystem
+namespace com.absence.savesystem.builtin.legacy
 {
-    public class BinarySerializator_Legacy : Serializator
+    /// <summary>
+    /// The serializator that uses <see cref="BinaryFormatter"/> to save/load.
+    /// </summary>
+    public class BinarySerializatorLegacy : Serializator
     {
-        public BinarySerializator_Legacy(string fileName) : base(fileName)
+        /// <summary>
+        /// The serializator that uses <see cref="BinaryFormatter"/> to save/load.
+        /// </summary>
+        /// <param name="fileName">File name to use.</param>
+        public BinarySerializatorLegacy(string fileName) : base(fileName)
         {
         }
 

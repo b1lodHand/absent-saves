@@ -1,10 +1,11 @@
+using com.absence.savesystem.builtin.legacy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
-namespace com.absence.savesystem.internals
+namespace com.absence.savesystem.internals.legacy
 {
     /// <summary>
     /// The static class which is responsible for keeping the track of all surrogate providers in the current project.

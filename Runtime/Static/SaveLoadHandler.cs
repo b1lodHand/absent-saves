@@ -61,7 +61,7 @@ namespace com.absence.savesystem
         {
             if (string.IsNullOrEmpty(serializator.FileName)) throw new Exception("Save name not valid!");
 
-            SaveMessageCaller receiver = SaveMessageCaller.CreateNew(SaveMessageCaller.CallMode.Save);
+            SaveMessageCaller receiver = SaveMessageCaller.CreateNew(SaveMessageCallMode.Save);
             receiver.Call();
 
             if (!serializator.Serialize(dataToSave)) return false;
@@ -84,7 +84,7 @@ namespace com.absence.savesystem
 
             handleData.Invoke(data);
 
-            SaveMessageCaller receiver = SaveMessageCaller.CreateNew(SaveMessageCaller.CallMode.Load);
+            SaveMessageCaller receiver = SaveMessageCaller.CreateNew(SaveMessageCallMode.Load);
             receiver.Call();
 
             OnLoad?.Invoke();

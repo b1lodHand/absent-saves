@@ -1,7 +1,10 @@
 using System;
 
-namespace com.absence.savesystem
+namespace com.absence.savesystem.builtin.legacy
 {
+    /// <summary>
+    /// Use to mark a static method as a provider.
+    /// </summary>
     [AttributeUsage(AttributeTargets.Method)]
     public class SurrogateProviderMethodAttribute : Attribute
     {

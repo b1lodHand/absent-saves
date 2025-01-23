@@ -3,33 +3,29 @@ using UnityEngine;
 
 namespace com.absence.savesystem.internals
 {
-    internal class SaveMessageCaller : MonoBehaviour
+    /// <summary>
+    /// This is the component responsible for sending messages to <see cref="ISaveMessageReceiver"/>
+    /// instances. Don't use this manually.
+    /// </summary>
+    public class SaveMessageCaller : MonoBehaviour
     {
-        internal enum CallMode
-        {
-            Save = 0,
-            Load = 1,
-        }
-
-        internal CallMode MessageCallMode { get; private set; }
-
-        internal static SaveMessageCaller CreateNew(CallMode callMode)
+        public static SaveMessageCaller CreateNew(SaveMessageCallMode callMode)
         {
             var comp = new GameObject(nameof(SaveMessageCaller)).AddComponent<SaveMessageCaller>();
             comp.MessageCallMode = callMode;
 
             return comp;
         }
-
-        internal bool Call()
+        public SaveMessageCallMode MessageCallMode { get; private set; }
+        public bool Call()
         {
             bool result = true;
             switch (MessageCallMode)
             {
-                case CallMode.Save:
+                case SaveMessageCallMode.Save:
                     result = CallForSave();
                     break;
-                case CallMode.Load:
+                case SaveMessageCallMode.Load:
                     result = CallForLoad();
                     break;
                 default:
@@ -40,7 +36,6 @@ namespace com.absence.savesystem.internals
             Destroy(gameObject);
             return result;
         }
-
         private bool CallForSave()
         {
             bool success = true;
@@ -53,7 +48,6 @@ namespace com.absence.savesystem.internals
 
             return success;
         }
-
         private bool CallForLoad()
         {
             bool success = true;
@@ -67,5 +61,4 @@ namespace com.absence.savesystem.internals
             return success;
         }
     }
-
 }

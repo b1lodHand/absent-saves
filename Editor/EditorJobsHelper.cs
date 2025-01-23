@@ -1,11 +1,11 @@
-using com.absence.savesystem.internals;
+using com.absence.savesystem.internals.legacy;
 using System.Text;
 using UnityEditor;
 using UnityEngine;
 
 namespace com.absence.savesystem.editor
 {
-    internal static class EditorJobsHelper
+    public static class EditorJobsHelper
     {
         [MenuItem("absencee_/absent-saves/Binary Serializator (Legacy)/Refresh Surrogate Provider Database")]
         static void PrintProviderList()

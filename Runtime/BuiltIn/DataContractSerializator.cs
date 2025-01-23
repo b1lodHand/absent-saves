@@ -5,12 +5,20 @@ using System.Runtime.Serialization;
 using System.Xml;
 using UnityEngine;
 
-namespace com.absence.savesystem
+namespace com.absence.savesystem.builtin
 {
+    /// <summary>
+    /// This is the serializator that uses <see cref="DataContractSerializer"/> for saving/loading.
+    /// </summary>
     public class DataContractSerializator : Serializator
     {
         private Type m_type;
 
+        /// <summary>
+        /// This is the serializator that uses <see cref="DataContractSerializer"/> for saving/loading.
+        /// </summary>
+        /// <param name="fileName">File name to use.</param>
+        /// <param name="type">Real type of the raw data.</param>
         public DataContractSerializator(string fileName, Type type) : base(fileName)
         {
             m_type = type;

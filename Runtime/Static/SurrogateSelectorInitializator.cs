@@ -1,8 +1,8 @@
 using System.Runtime.Serialization;
 
-namespace com.absence.savesystem.internals
+namespace com.absence.savesystem.internals.legacy
 {
-    internal static class SurrogateSelectorInitializator
+    public static class SurrogateSelectorInitializator
     {
         internal static void InitializeSurrogatesForSelector(SurrogateSelector targetSelector)
         {
